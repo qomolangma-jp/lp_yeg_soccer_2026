@@ -8,154 +8,211 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* カスタムフォントとスタイル定義 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Oswald:wght@700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .font-en {
+            font-family: 'Oswald', sans-serif;
+        }
+
+        /* 斜めカットのユーティリティ */
+        .clip-slant-bottom {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        .clip-slant-top {
+            clip-path: polygon(0 10%, 100% 0, 100% 100%, 0 100%);
+        }
+        .clip-slant-both {
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+        }
+        .clip-parallelogram {
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        /* 文字の縁取り（アウトライン） */
+        .text-outline-white {
+            color: transparent;
+            -webkit-text-stroke: 1px white;
+        }
+        .text-outline-blue {
+            color: transparent;
+            -webkit-text-stroke: 2px #1d4ed8;
+        }
+
+        /* ドロップシャドウ強調 */
+        .hard-shadow {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,0.8);
+        }
+        
+        /* ヒーロー画像のズームアニメーション */
+        @keyframes heroZoom {
+            0% { transform: scale(1.05); }
+            100% { transform: scale(1.15); }
+        }
+        .animate-zoom {
+            animation: heroZoom 15s ease-in-out infinite alternate;
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-slate-900 font-sans text-slate-800 selection:bg-yellow-400 selection:text-slate-900 overflow-x-hidden">
+<body class="text-slate-800 overflow-x-hidden">
 
-    <!-- ヒーローセクション -->
-    <header class="relative bg-slate-900 overflow-hidden">
-        <!-- 背景装飾：スタジアムの照明と夜空 -->
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900 via-slate-900 to-slate-950"></div>
-        
-        <!-- スタジアムのライト風エフェクト -->
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-400 opacity-20 rounded-full blur-[100px] -translate-y-1/2"></div>
-        <div class="absolute top-0 right-1/4 w-96 h-96 bg-blue-500 opacity-20 rounded-full blur-[100px] -translate-y-1/2"></div>
-        
-        <!-- 斜めのストライプパターン -->
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 2px, transparent 2px, transparent 10px)"></div>
+    <!-- ==========================================
+         HERO SECTION
+    ========================================== -->
+    <header class="relative w-full h-[85vh] min-h-[600px] bg-slate-900 clip-slant-bottom overflow-hidden z-20">
+        <!-- 背景画像 (スタジアム) -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center animate-zoom" style="background-image: url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=2000&auto=format&fit=crop');"></div>
+            <!-- 青系のデュオトーン風オーバーレイ -->
+            <div class="absolute inset-0 bg-blue-900/60 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-tr from-blue-900/90 via-transparent to-cyan-500/50"></div>
+        </div>
 
-        <div class="max-w-5xl mx-auto px-4 pt-16 pb-32 relative z-10">
-            <div class="flex flex-col items-center text-center">
-                <!-- 上部バッジ -->
-                <div class="transform -skew-x-12 bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-2 mb-8 border-l-4 border-yellow-400 shadow-[0_0_20px_rgba(6,182,212,0.5)]">
-                    <span class="transform skew-x-12 block text-white font-bold tracking-widest text-sm md:text-base">
-                        石川県連チーム 参加者大募集！
-                    </span>
+        <!-- コンテンツ -->
+        <div class="relative z-10 w-full h-full flex flex-col items-center justify-center pt-10 px-4">
+            
+            <!-- 大会名 -->
+            <div class="mb-4 text-center">
+                <p class="text-white font-bold tracking-widest text-sm md:text-base drop-shadow-md">
+                    商工会議所青年部 第23回全国サッカー大会 ふくい大会
+                </p>
+                <div class="flex items-center justify-center gap-4 mt-2">
+                    <div class="h-px w-12 bg-yellow-400"></div>
+                    <h2 class="font-en text-yellow-400 text-3xl md:text-4xl tracking-widest">BUILD UP JAPAN</h2>
+                    <div class="h-px w-12 bg-yellow-400"></div>
                 </div>
+            </div>
 
-                <!-- メインコピー -->
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-300 mb-4 tracking-tight leading-tight drop-shadow-2xl">
-                    休日は福井へ、<br class="md:hidden" />
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">遊びに</span>行こう！
-                </h1>
+            <!-- メインキャッチ -->
+            <div class="relative mt-4 mb-8">
+                <!-- 装飾テキスト（背景に巨大に配置） -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[120px] md:text-[200px] font-en text-outline-white opacity-20 whitespace-nowrap pointer-events-none select-none">
+                    FUKUI 2026
+                </div>
                 
-                <p class="text-cyan-400 text-lg md:text-2xl font-bold tracking-widest mb-10 flex items-center justify-center gap-2">
-                    <i data-lucide="sparkles" class="w-5 h-5 md:w-6 md:h-6"></i>
-                    <span>BUILD UP JAPAN</span>
-                    <i data-lucide="sparkles" class="w-5 h-5 md:w-6 md:h-6"></i>
-                </p>
+                <h1 class="relative text-center leading-tight">
+                    <span class="block text-white font-black text-4xl md:text-6xl lg:text-7xl drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)] mb-2">
+                        休日は福井へ、
+                    </span>
+                    <span class="block text-yellow-400 font-black text-5xl md:text-7xl lg:text-8xl drop-shadow-[0_5px_5px_rgba(0,0,0,0.5)] transform -rotate-2">
+                        遊びに行こう！
+                    </span>
+                </h1>
+            </div>
 
-                <p class="text-slate-300 text-sm md:text-base font-medium mb-12 max-w-2xl bg-slate-800/50 p-4 rounded-lg backdrop-blur-sm border border-slate-700">
-                    商工会議所青年部 第23回全国サッカー大会 ふくい大会<br/>
-                    ～眠らせない、朝まで楽しむ福井大会～
-                </p>
-
-                <!-- ターゲット層アピール -->
-                <div class="w-full max-w-3xl relative">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-green-400 to-cyan-500 rounded-xl blur opacity-30"></div>
-                    <div class="relative bg-slate-800 border border-slate-700 rounded-xl p-6 md:p-8 shadow-2xl">
-                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-slate-900 border-2 border-slate-700 px-6 py-1 rounded-full">
-                            <span class="text-yellow-400 font-bold text-sm tracking-widest">TARGET</span>
-                        </div>
-                        <p class="text-white text-lg md:text-xl font-bold leading-relaxed">
-                            珠洲・輪島・七尾・白山・小松・加賀の<br class="md:hidden" />
-                            6単会のメンバーなら<br />
-                            <span class="text-3xl md:text-4xl text-yellow-400 mt-2 inline-block font-black border-b-4 border-cyan-500 pb-1">誰でも参加OK！</span>
-                        </p>
-                    </div>
+            <!-- 募集対象バッジ -->
+            <div class="bg-gradient-to-r from-blue-600 to-cyan-500 p-1 clip-parallelogram shadow-2xl transform rotate-2 mt-4 hover:scale-105 transition-transform cursor-default">
+                <div class="bg-white text-blue-900 px-8 py-3 md:px-12 md:py-4 clip-parallelogram text-center font-bold">
+                    <span class="block text-sm md:text-base text-blue-600 mb-1">石川県連チーム 選手大募集！</span>
+                    <span class="block text-lg md:text-2xl">珠洲・輪島・七尾・白山・小松・加賀の<br class="md:hidden"/>6単会メンバーへ</span>
                 </div>
             </div>
         </div>
-
-        <!-- 芝生を模した斜めの区切り -->
-        <div class="absolute bottom-0 w-full h-24 bg-green-500" style="clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 100%)"></div>
+        
+        <!-- 下部の波形グラフィック装飾 -->
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-900/80 to-transparent"></div>
     </header>
 
-    <!-- メッセージセクション (芝生エリア) -->
-    <section class="bg-green-500 py-16 relative">
-        <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(90deg, rgba(255,255,255,.1) 50%, transparent 50%); background-size: 100px 100px"></div>
+    <!-- ==========================================
+         MESSAGE SECTION (熱い想い)
+    ========================================== -->
+    <section class="relative bg-red-600 -mt-16 pt-24 pb-20 clip-slant-bottom z-10">
+        <!-- ドットパターンの背景 -->
+        <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#fff 2px, transparent 2px); background-size: 20px 20px;"></div>
         
-        <div class="max-w-5xl mx-auto px-4 relative z-10">
-            <div class="bg-white rounded-2xl shadow-2xl p-8 md:p-12 border-b-8 border-yellow-400 transform -rotate-1 hover:rotate-0 transition-transform duration-300">
-                <div class="text-center mb-10">
-                    <h2 class="text-2xl md:text-4xl font-black text-slate-800 mb-4 leading-tight">
-                        経験者だけを求めているのでは<br />ありません！
-                    </h2>
-                    <div class="inline-block bg-slate-900 text-white px-6 py-3 rounded-full shadow-lg transform rotate-2">
-                        <p class="text-xl md:text-2xl font-black">
-                            経験より<span class="text-orange-500">熱い想い！</span>が大事です
-                        </p>
-                    </div>
+        <div class="max-w-5xl mx-auto px-4 relative z-10 text-center">
+            <h2 class="text-white font-black text-2xl md:text-4xl leading-snug mb-6 drop-shadow-md">
+                経験者だけを求めているのでは<br class="md:hidden"/>ありません！
+            </h2>
+            
+            <div class="inline-block relative">
+                <!-- 装飾の枠線 -->
+                <div class="absolute inset-0 border-4 border-yellow-400 transform translate-x-2 translate-y-2"></div>
+                <div class="bg-slate-900 text-white px-6 py-4 md:px-10 md:py-6 relative z-10 flex items-center gap-4">
+                    <i data-lucide="flame" class="w-8 h-8 md:w-12 md:h-12 text-red-500"></i>
+                    <p class="text-2xl md:text-5xl font-black">
+                        経験より<span class="text-yellow-400 text-4xl md:text-7xl mx-1 font-en align-middle">熱い想い!</span>が大事です
+                    </p>
                 </div>
-                
-                <div class="grid md:grid-cols-3 gap-6 text-left">
-                    <!-- アイテム 1 -->
-                    <div class="bg-slate-50 border-2 border-slate-100 rounded-xl p-6 relative overflow-hidden group hover:border-green-400 transition-colors">
-                        <div class="absolute top-0 right-0 w-16 h-16 bg-green-100 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150"></div>
-                        <i data-lucide="check-circle-2" class="text-green-500 w-8 h-8 mb-4 relative z-10"></i>
-                        <h3 class="font-bold text-lg text-slate-800 mb-2 relative z-10">サッカー未経験？</h3>
-                        <p class="text-slate-600 font-medium relative z-10">全然OK！エンジョイ第一！ガチ勢じゃなくても大歓迎です。</p>
-                    </div>
-                    <!-- アイテム 2 -->
-                    <div class="bg-slate-50 border-2 border-slate-100 rounded-xl p-6 relative overflow-hidden group hover:border-green-400 transition-colors">
-                        <div class="absolute top-0 right-0 w-16 h-16 bg-green-100 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150"></div>
-                        <i data-lucide="check-circle-2" class="text-green-500 w-8 h-8 mb-4 relative z-10"></i>
-                        <h3 class="font-bold text-lg text-slate-800 mb-2 relative z-10">応援・ひやかし？</h3>
-                        <p class="text-slate-600 font-medium relative z-10">大歓迎！ベンチから盛り上げるのも立派なポジションです。</p>
-                    </div>
-                    <!-- アイテム 3 -->
-                    <div class="bg-slate-50 border-2 border-slate-100 rounded-xl p-6 relative overflow-hidden group hover:border-green-400 transition-colors">
-                        <div class="absolute top-0 right-0 w-16 h-16 bg-green-100 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-150"></div>
-                        <i data-lucide="check-circle-2" class="text-green-500 w-8 h-8 mb-4 relative z-10"></i>
-                        <h3 class="font-bold text-lg text-slate-800 mb-2 relative z-10">夜の懇親会が本番？</h3>
-                        <p class="text-slate-600 font-medium relative z-10">それも立派な参加理由🍻！朝まで福井を楽しみ尽くそう！</p>
-                    </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mt-12">
+                <div class="bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 text-white font-bold flex items-center">
+                    <i data-lucide="check" class="text-yellow-400 mr-2"></i> サッカー未経験OK
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 text-white font-bold flex items-center">
+                    <i data-lucide="check" class="text-yellow-400 mr-2"></i> 応援・ひやかし大歓迎
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm border border-white/30 rounded-full px-6 py-3 text-white font-bold flex items-center">
+                    <i data-lucide="check" class="text-yellow-400 mr-2"></i> 懇親会メインでOK
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- イベント内容 -->
-    <section class="bg-slate-100 py-20 relative">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="w-12 h-2 bg-blue-600"></div>
-                <h2 class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-wider">
-                    Activities <span class="text-sm md:text-base font-bold text-slate-500 ml-2">お楽しみコンテンツ</span>
-                </h2>
+    <!-- ==========================================
+         ACTIVITIES SECTION
+    ========================================== -->
+    <section class="py-20 relative bg-white z-0">
+        <div class="max-w-6xl mx-auto px-4">
+            
+            <!-- セクションタイトル -->
+            <div class="text-center mb-16 relative">
+                <h2 class="font-en text-6xl md:text-8xl text-slate-100 font-black absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none">ACTIVITIES</h2>
+                <div class="relative z-10 inline-block bg-blue-900 text-white font-bold text-xl md:text-2xl px-10 py-3 clip-parallelogram">
+                    大会コンテンツ
+                </div>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <!-- コンテンツ1 -->
-                <div class="bg-white rounded-xl shadow-xl overflow-hidden border-2 border-transparent hover:border-blue-500 transition-all group">
-                    <div class="h-40 bg-slate-900 relative flex items-center justify-center overflow-hidden">
-                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1518605368461-1ee7c532066d?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity mix-blend-luminosity"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                        <div class="relative z-10 flex flex-col items-center">
-                            <span class="text-5xl mb-2 filter drop-shadow-lg">⚽️</span>
-                            <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Entry League</span>
-                        </div>
+            <!-- コンテンツ 1: サッカー -->
+            <div class="flex flex-col lg:flex-row items-center gap-8 mb-20 relative">
+                <!-- 画像エリア（斜め配置） -->
+                <div class="w-full lg:w-3/5 relative">
+                    <div class="absolute inset-0 bg-blue-600 clip-parallelogram transform translate-x-4 translate-y-4"></div>
+                    <div class="relative h-64 md:h-96 clip-parallelogram overflow-hidden group">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('img_11nin.jpg');"></div>
+                        <div class="absolute inset-0 bg-blue-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
-                    <div class="p-8">
-                        <h3 class="text-2xl font-black text-slate-800 mb-3">11人制エンジョイサッカー</h3>
+                </div>
+                <!-- テキストエリア -->
+                <div class="w-full lg:w-2/5 lg:-ml-12 relative z-10">
+                    <div class="bg-white p-8 md:p-10 shadow-2xl border-l-8 border-blue-600 relative">
+                        <div class="absolute top-0 right-0 bg-slate-900 text-white font-en font-bold px-4 py-1 text-sm">01</div>
+                        <h3 class="text-2xl md:text-3xl font-black text-slate-900 mb-4 leading-tight">
+                            11人制エンジョイ<br/>サッカーリーグ
+                        </h3>
+                        <p class="inline-block bg-blue-100 text-blue-800 font-bold px-3 py-1 text-sm mb-4">Y3リーグに参加</p>
                         <p class="text-slate-600 font-medium leading-relaxed">
-                            Y3リーグに参加します！ガチガチの勝負ではなく、みんなでボールを蹴る楽しさを分かち合うリーグです。久しぶりに広いピッチで汗を流しませんか？
+                            ガチガチの勝負ではなく、みんなでボールを蹴る楽しさを分かち合うリーグです。久しぶりに広いピッチで汗を流しませんか？未経験者も大歓迎のエンジョイルール！
                         </p>
                     </div>
                 </div>
+            </div>
 
-                <!-- コンテンツ2 -->
-                <div class="bg-white rounded-xl shadow-xl overflow-hidden border-2 border-transparent hover:border-cyan-500 transition-all group">
-                    <div class="h-40 bg-slate-900 relative flex items-center justify-center overflow-hidden">
-                        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526232761682-d26e03ac148e?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity mix-blend-luminosity"></div>
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                        <div class="relative z-10 flex flex-col items-center">
-                            <span class="text-5xl mb-2 filter drop-shadow-lg">🫧</span>
-                            <span class="bg-cyan-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">Fun Sports</span>
-                        </div>
+            <!-- コンテンツ 2: バブルサッカー -->
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-8 relative">
+                <!-- 画像エリア（斜め配置） -->
+                <div class="w-full lg:w-3/5 relative">
+                    <div class="absolute inset-0 bg-cyan-400 clip-parallelogram transform -translate-x-4 translate-y-4"></div>
+                    <div class="relative h-64 md:h-96 clip-parallelogram overflow-hidden group">
+                        <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style="background-image: url('https://sportie.com/wp-content/uploads/2014/05/b01e2491fc8e5c5bceeb1a96aac90339.jpg');"></div>
+                        <div class="absolute inset-0 bg-cyan-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                     </div>
-                    <div class="p-8 relative">
-                        <div class="absolute top-0 right-0 bg-pink-500 text-white text-xs font-black px-4 py-1 rounded-bl-lg">参加計画中</div>
-                        <h3 class="text-2xl font-black text-slate-800 mb-3 mt-2">5人制バブルサッカー</h3>
+                </div>
+                <!-- テキストエリア -->
+                <div class="w-full lg:w-2/5 lg:-mr-12 relative z-10">
+                    <div class="bg-white p-8 md:p-10 shadow-2xl border-r-8 border-cyan-400 relative">
+                        <div class="absolute top-0 left-0 bg-slate-900 text-white font-en font-bold px-4 py-1 text-sm">02</div>
+                        <h3 class="text-2xl md:text-3xl font-black text-slate-900 mb-4 leading-tight">
+                            5人制バブルサッカー
+                        </h3>
+                        <p class="inline-block bg-pink-100 text-pink-600 font-bold px-3 py-1 text-sm mb-4">現在参加計画中！</p>
                         <p class="text-slate-600 font-medium leading-relaxed">
                             大きな透明のバブルを被ってぶつかり合う、爆笑必至のスポーツ！運動神経ゼロでも絶対楽しめます。日頃のストレスを全力で発散しましょう！
                         </p>
@@ -163,162 +220,163 @@
                 </div>
             </div>
 
-            <!-- 懇親会バナー -->
-            <div class="relative overflow-hidden rounded-2xl shadow-2xl bg-slate-900 group">
-                <div class="absolute inset-0 bg-gradient-to-r from-orange-600 to-yellow-500 opacity-90 group-hover:opacity-100 transition-opacity"></div>
-                <!-- 装飾パターン -->
-                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px"></div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         PARTY SECTION (懇親会 - リッチな写真配置)
+    ========================================== -->
+    <section class="py-24 relative bg-slate-900 clip-slant-both z-20">
+        <!-- 背景テクスチャ -->
+        <div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 2px, transparent 2px, transparent 8px);"></div>
+        
+        <div class="max-w-6xl mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
                 
-                <div class="relative z-10 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div class="flex-1 text-center md:text-left">
-                        <div class="inline-flex items-center gap-2 bg-black/30 text-yellow-300 text-sm font-bold px-4 py-1 rounded-full mb-4 backdrop-blur-sm">
-                            <i data-lucide="party-popper" class="w-4 h-4"></i>
-                            夜のメインイベント
-                        </div>
-                        <h3 class="text-3xl md:text-4xl font-black text-white mb-3 tracking-tight">大懇親会で盛り上がろう🍻</h3>
-                        <p class="text-white/90 font-medium text-lg max-w-2xl">
-                            「眠らせない、朝まで楽しむ福井大会」の真骨頂！全国のYEGメンバーや石川県連の仲間と、美味しい福井のグルメを堪能しながら最高の夜を過ごしましょう。
-                        </p>
+                <!-- テキスト -->
+                <div class="w-full md:w-1/3 text-white">
+                    <div class="flex items-center gap-2 text-yellow-400 font-bold mb-4">
+                        <i data-lucide="beer" class="w-6 h-6"></i>
+                        <span class="tracking-widest">NIGHT EVENT</span>
                     </div>
-                    <div class="w-32 h-32 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 flex-shrink-0">
-                        <i data-lucide="trophy" class="w-16 h-16 text-yellow-300"></i>
+                    <h2 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                        夜のメインイベント<br/>
+                        <span class="text-yellow-400">大懇親会🍻</span>
+                    </h2>
+                    <p class="text-slate-300 font-medium text-lg leading-relaxed mb-8">
+                        「眠らせない、朝まで楽しむ福井大会」の真骨頂！全国のYEGメンバーや石川県連の仲間と、美味しい福井のグルメを堪能しながら最高の夜を過ごしましょう。ここが本番という方も大歓迎！
+                    </p>
+                    <div class="bg-white/10 border-l-4 border-yellow-400 p-4">
+                        <p class="font-bold">📍 会場：フェニックスプラザ</p>
+                        <p class="font-bold">⏰ 時間：18:20 〜 20:40</p>
                     </div>
                 </div>
+
+                <!-- 写真ギャラリー風レイアウト -->
+                <div class="w-full md:w-2/3 relative h-[400px] md:h-[500px]">
+                    <!-- 写真1 (肉) -->
+                    <div class="absolute top-0 right-0 w-2/3 h-64 md:h-80 shadow-2xl border-4 border-white transform rotate-3 hover:rotate-0 transition-transform duration-300 z-10">
+                        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=800&auto=format&fit=crop');"></div>
+                    </div>
+                    <!-- 写真2 (乾杯) -->
+                    <div class="absolute bottom-0 left-0 w-3/5 h-56 md:h-72 shadow-2xl border-4 border-yellow-400 transform -rotate-3 hover:rotate-0 transition-transform duration-300 z-20">
+                        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1536935338788-846bb9981813?q=80&w=800&auto=format&fit=crop');"></div>
+                    </div>
+                    <!-- 装飾バッジ -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600 text-white font-black text-xl md:text-2xl rounded-full w-24 h-24 md:w-32 md:h-32 flex items-center justify-center transform -rotate-12 shadow-xl border-4 border-white z-30">
+                        最高！
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- スケジュール -->
-    <section class="bg-slate-900 py-20 relative border-t border-slate-800">
-        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50"></div>
+    <!-- ==========================================
+         SCHEDULE SECTION
+    ========================================== -->
+    <section class="py-20 bg-slate-100 relative -mt-10 pt-32 pb-32 z-10">
         <div class="max-w-4xl mx-auto px-4">
-            <div class="flex flex-col items-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-black text-white uppercase tracking-wider mb-2">
-                    Schedule
-                </h2>
-                <div class="bg-blue-600 text-white font-bold px-6 py-2 rounded-full border border-blue-400 shadow-[0_0_15px_rgba(37,99,235,0.5)]">
-                    7月11日 (土)
-                </div>
+            
+            <div class="text-center mb-12">
+                <h2 class="font-en text-5xl font-black text-slate-800 mb-2">SCHEDULE</h2>
+                <p class="text-blue-600 font-bold text-xl">7月11日 (土) の流れ</p>
             </div>
 
-            <div class="relative">
-                <!-- タイムラインの中央線 (PC) / 左線 (SP) -->
-                <div class="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-slate-800 md:-translate-x-1/2 rounded-full"></div>
-
-                <div class="space-y-12">
-                    <!-- スケジュール 1 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:justify-between group">
-                        <div class="hidden md:block w-[45%] text-right pr-8 pt-4">
-                            <span class="text-3xl font-black text-cyan-400 font-mono tracking-tighter">09:00 - 15:00</span>
-                        </div>
-                        <div class="absolute left-6 md:left-1/2 w-8 h-8 bg-slate-900 border-4 border-cyan-400 rounded-full -translate-x-1/2 md:-translate-x-1/2 mt-4 shadow-[0_0_10px_rgba(34,211,238,0.6)] z-10"></div>
-                        <div class="pl-16 md:pl-8 md:w-[45%] w-full">
-                            <div class="md:hidden mb-2">
-                                <span class="text-2xl font-black text-cyan-400 font-mono tracking-tighter">09:00 - 15:00</span>
-                            </div>
-                            <div class="bg-slate-800 border border-slate-700 p-6 rounded-xl shadow-lg group-hover:border-cyan-500 transition-colors">
-                                <div class="flex items-center gap-2 text-slate-400 text-sm font-bold mb-3 bg-slate-900 inline-flex px-3 py-1 rounded">
-                                    <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400"></i> 福井市体育館
-                                </div>
-                                <h4 class="text-xl font-black text-white mb-2">各種リーグ開催 ⚽️🫧</h4>
-                                <ul class="text-slate-300 space-y-1 font-medium">
-                                    <li>・1day11人制エンジョイサッカーリーグ (Y3)</li>
-                                    <li>・1dayバブルサッカーリーグ</li>
-                                </ul>
-                            </div>
-                        </div>
+            <!-- リッチなデザインのテーブル/リスト -->
+            <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200">
+                
+                <!-- 行1 -->
+                <div class="flex flex-col md:flex-row border-b border-slate-100 group hover:bg-blue-50 transition-colors">
+                    <div class="md:w-1/3 bg-blue-600 text-white p-6 md:p-8 flex flex-col justify-center items-center md:items-start group-hover:bg-blue-700 transition-colors">
+                        <span class="font-en text-3xl font-black">09:00 - 15:00</span>
+                        <span class="text-blue-200 text-sm mt-1 font-bold"><i data-lucide="map-pin" class="inline w-4 h-4 mb-1"></i> 福井市体育館</span>
                     </div>
-
-                    <!-- スケジュール 2 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:justify-between group">
-                        <div class="hidden md:block w-[45%] text-right pr-8 pt-4">
-                            <span class="text-3xl font-black text-slate-400 font-mono tracking-tighter">17:15 - 18:05</span>
-                        </div>
-                        <div class="absolute left-6 md:left-1/2 w-8 h-8 bg-slate-900 border-4 border-slate-500 rounded-full -translate-x-1/2 md:-translate-x-1/2 mt-4 z-10"></div>
-                        <div class="pl-16 md:pl-8 md:w-[45%] w-full">
-                            <div class="md:hidden mb-2">
-                                <span class="text-2xl font-black text-slate-400 font-mono tracking-tighter">17:15 - 18:05</span>
-                            </div>
-                            <div class="bg-slate-800 border border-slate-700 p-6 rounded-xl shadow-lg group-hover:border-slate-500 transition-colors">
-                                <div class="flex items-center gap-2 text-slate-400 text-sm font-bold mb-3 bg-slate-900 inline-flex px-3 py-1 rounded">
-                                    <i data-lucide="map-pin" class="w-4 h-4 text-slate-400"></i> 福井市体育館
-                                </div>
-                                <h4 class="text-xl font-black text-white">キャプテン会議 📋</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- スケジュール 3 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:justify-between group">
-                        <div class="hidden md:block w-[45%] text-right pr-8 pt-4">
-                            <span class="text-3xl font-black text-yellow-400 font-mono tracking-tighter">18:20 - 20:40</span>
-                        </div>
-                        <div class="absolute left-6 md:left-1/2 w-8 h-8 bg-slate-900 border-4 border-yellow-400 rounded-full -translate-x-1/2 md:-translate-x-1/2 mt-4 shadow-[0_0_10px_rgba(250,204,21,0.6)] z-10"></div>
-                        <div class="pl-16 md:pl-8 md:w-[45%] w-full">
-                            <div class="md:hidden mb-2">
-                                <span class="text-2xl font-black text-yellow-400 font-mono tracking-tighter">18:20 - 20:40</span>
-                            </div>
-                            <div class="bg-slate-800 border border-yellow-500/30 p-6 rounded-xl shadow-lg group-hover:border-yellow-400 transition-colors">
-                                <div class="flex items-center gap-2 text-slate-400 text-sm font-bold mb-3 bg-slate-900 inline-flex px-3 py-1 rounded">
-                                    <i data-lucide="map-pin" class="w-4 h-4 text-yellow-400"></i> フェニックスプラザ
-                                </div>
-                                <h4 class="text-xl font-black text-white mb-2">大懇親会 🍻🥩</h4>
-                                <p class="text-slate-300 font-medium">
-                                    朝まで楽しむ福井大会の幕開け！親睦を深めましょう！
-                                </p>
-                            </div>
-                        </div>
+                    <div class="md:w-2/3 p-6 md:p-8 flex flex-col justify-center">
+                        <h4 class="text-2xl font-black text-slate-800 mb-2">各種リーグ開催</h4>
+                        <p class="text-slate-600 font-medium mb-1">・1day11人制エンジョイサッカーリーグ (Y3)</p>
+                        <p class="text-slate-600 font-medium">・1dayバブルサッカーリーグ</p>
                     </div>
                 </div>
+
+                <!-- 行2 -->
+                <div class="flex flex-col md:flex-row border-b border-slate-100 group hover:bg-slate-50 transition-colors">
+                    <div class="md:w-1/3 bg-slate-700 text-white p-6 md:p-8 flex flex-col justify-center items-center md:items-start group-hover:bg-slate-800 transition-colors">
+                        <span class="font-en text-3xl font-black">17:15 - 18:05</span>
+                        <span class="text-slate-300 text-sm mt-1 font-bold"><i data-lucide="map-pin" class="inline w-4 h-4 mb-1"></i> 福井市体育館</span>
+                    </div>
+                    <div class="md:w-2/3 p-6 md:p-8 flex flex-col justify-center">
+                        <h4 class="text-2xl font-black text-slate-800 mb-2">キャプテン会議</h4>
+                        <p class="text-slate-500 text-sm">※代表者のみ参加</p>
+                    </div>
+                </div>
+
+                <!-- 行3 -->
+                <div class="flex flex-col md:flex-row group hover:bg-yellow-50 transition-colors">
+                    <div class="md:w-1/3 bg-yellow-500 text-white p-6 md:p-8 flex flex-col justify-center items-center md:items-start group-hover:bg-yellow-600 transition-colors">
+                        <span class="font-en text-3xl font-black">18:20 - 20:40</span>
+                        <span class="text-yellow-100 text-sm mt-1 font-bold"><i data-lucide="map-pin" class="inline w-4 h-4 mb-1"></i> フェニックスプラザ</span>
+                    </div>
+                    <div class="md:w-2/3 p-6 md:p-8 flex flex-col justify-center">
+                        <h4 class="text-2xl font-black text-slate-800 mb-2">大懇親会</h4>
+                        <p class="text-slate-600 font-medium">朝まで楽しむ福井大会の幕開け！石川県連の仲間と親睦を深めましょう！</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- CTA / お問い合わせ -->
-    <section class="bg-gradient-to-br from-blue-900 to-slate-900 py-24 relative overflow-hidden">
-        <!-- 装飾 -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500 opacity-10 rounded-full blur-[80px]"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-600 opacity-10 rounded-full blur-[80px]"></div>
-
+    <!-- ==========================================
+         CTA SECTION (お問い合わせ)
+    ========================================== -->
+    <section class="relative bg-blue-600 py-24 clip-slant-top -mt-16 z-20">
+        <!-- 背景装飾 -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500 rounded-full blur-[100px] opacity-50"></div>
+        </div>
+        
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 class="text-3xl md:text-5xl font-black text-white mb-10 leading-tight">
-                皆様のご参加を<br class="md:hidden"/>お待ちしております！🚗💨
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-12 drop-shadow-md">
+                皆様のご参加を<br class="md:hidden"/>お待ちしております！
             </h2>
             
-            <div class="bg-slate-800/80 backdrop-blur-md border border-slate-700 rounded-3xl p-8 md:p-12 shadow-2xl relative">
-                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-yellow-400 text-slate-900 font-black px-8 py-2 rounded-full shadow-lg transform -rotate-2">
-                    お問い合わせ・参加申込
+            <div class="bg-white hard-shadow border-4 border-slate-900 p-8 md:p-12 transform -rotate-1">
+                <div class="inline-block bg-slate-900 text-yellow-400 font-bold px-6 py-2 mb-6 transform -skew-x-12">
+                    <span class="transform skew-x-12 block">お問い合わせ・参加申込</span>
                 </div>
                 
-                <div class="mt-6 mb-10">
-                    <p class="text-slate-400 font-bold mb-2 uppercase tracking-widest text-sm">CONTACT</p>
-                    <p class="text-2xl md:text-3xl font-black text-white">
-                        県連交流委員会 または <br class="md:hidden" />
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 border-b-2 border-blue-500 pb-1 inline-block mt-2 md:mt-0">輪島YEG 古倉</span> まで
-                    </p>
-                    <p class="text-slate-300 mt-6 font-medium text-lg">
-                        「参加したい！」「ちょっと興味ある！」など、<br />
-                        お気軽にご連絡ください！
-                    </p>
+                <div class="text-2xl md:text-3xl font-black text-slate-800 mb-8 leading-relaxed">
+                    県連交流委員会 または <br class="md:hidden" />
+                    <span class="bg-yellow-300 px-2 pb-1">輪島YEG 古倉</span> まで
                 </div>
+                
+                <p class="text-slate-600 font-bold mb-10">
+                    「参加したい！」「ちょっと興味ある！」など、<br class="hidden md:block"/>お気軽にご連絡ください！
+                </p>
                 
                 <a 
                     href="https://yeg-football.jp/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    class="group inline-flex items-center justify-center w-full md:w-auto bg-blue-600 hover:bg-blue-500 text-white font-black text-lg py-5 px-10 rounded-xl shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]"
+                    class="group relative inline-flex items-center justify-center w-full md:w-auto bg-red-600 text-white font-black text-xl py-5 px-12 overflow-hidden transition-all hover:bg-red-700 hard-shadow border-2 border-slate-900"
                 >
-                    <span>大会公式サイトで詳細を見る</span>
-                    <i data-lucide="chevron-right" class="w-6 h-6 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                    <span class="relative flex items-center">
+                        大会公式サイトで詳細を見る
+                        <i data-lucide="arrow-right" class="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform"></i>
+                    </span>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- フッター -->
-    <footer class="bg-slate-950 text-slate-500 py-8 text-center text-sm font-medium border-t border-slate-900">
-        <p class="mb-2">© Ishikawa YEG All Rights Reserved.</p>
-        <p class="text-slate-600 text-xs">※このページは参加募集のための非公式PRページです。</p>
+    <!-- ==========================================
+         FOOTER
+    ========================================== -->
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center text-sm font-medium">
+        <p class="mb-2 tracking-widest font-en">© ISHIKAWA YEG ALL RIGHTS RESERVED.</p>
+        <p class="text-slate-500 text-xs">※このページは参加募集のための非公式PRページです。</p>
     </footer>
 
     <!-- アイコンの初期化 -->
